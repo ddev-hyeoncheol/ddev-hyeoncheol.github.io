@@ -4,7 +4,7 @@ date: '2024-01-26'
 author: 'ddev-hyeoncheol'
 category: 'Data Engineering'
 excerpt: '데이터를 물리적으로 분할해 독립적으로 처리하는 MPP(Massively Parallel Processing) 아키텍처의 개념 및 그 활용에 대해 알아보자.'
-tags: ['Data Engineering', 'Architecture', 'MPP', 'Distributed Computing']
+tags: ['Data Engineering', 'Distributed Computing', 'MPP']
 prev: ''
 next: ''
 ---
@@ -50,6 +50,8 @@ Impala 에서 쿼리 요청(Submission) 이 발생하는 상황을 가정해 보
 > **Note** : Impala 에서는 기본적으로 모든 노드가 **Coordinator 와 Executor 의 역할을 동시에 수행**할 수 있다.
 
 Impala 쿼리가 실행되는 일련의 과정에서 앞서 말한 MPP 의 특징들을 확인할 수 있는데, 우선 Impala 내 각 노드는 CPU, 메모리, 스토리지를 독립적으로 점유하는 **Shared-Nothing Architecture** 를 통해 자원 경합에 따른 병목 현상을 원천적으로 차단하고, 데이터를 클러스터 전체에 나누어 저장하는 **데이터 분산(Data Distribution)** 으로 모든 노드의 I/O 성능을 균일하게 가용하고 있다. 연산 단계에서는 작업을 Fragment 단위로 세분화해 동시에 실행하는 **병렬 쿼리 실행(Parallel Query Processing)** 으로 대규모 연산 속도를 극대화하고, 성능의 확장이 필요한 경우 단순히 새로운 노드를 추가하는 것만으로도 처리 능력을 선형적으로 증가시킬 수 있는 **확장성(Scalability)** 을 제공하고 있다.
+
+---
 
 ## MPP 아키텍처의 활용
 

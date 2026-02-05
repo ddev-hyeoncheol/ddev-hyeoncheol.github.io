@@ -4,7 +4,7 @@ date: '2024-01-05'
 author: 'ddev-hyeoncheol'
 category: 'Data Engineering'
 excerpt: '대용량 데이터 분석에 필수적인 컬럼 기반(Column-based) 저장 방식의 개념과 특징을 알아보고, Row-based 방식과 비교해 보자.'
-tags: ['Data Engineering', 'Database', 'OLAP']
+tags: ['Data Engineering', 'Database', 'Column-based', 'OLAP']
 prev: ''
 next: ''
 ---
