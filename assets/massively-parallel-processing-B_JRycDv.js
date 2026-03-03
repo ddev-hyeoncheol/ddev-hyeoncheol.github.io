@@ -3,7 +3,7 @@ title: 'MPP(Massively Parallel Processing) 아키텍처'
 date: '2024-01-26'
 author: 'ddev-hyeoncheol'
 category: 'Data Engineering'
-excerpt: '데이터를 물리적으로 분할해 독립적으로 처리하는 MPP(Massively Parallel Processing) 아키텍처의 개념 및 그 활용에 대해 알아보자.'
+excerpt: '여러 노드가 하나의 작업을 병렬로 동시에 처리하는 MPP(Massively Parallel Processing) 아키텍처의 개념과 특징 및 그 활용에 대해 알아보자.'
 tags: ['Data Engineering', 'Distributed Computing', 'MPP']
 prev: ''
 next: ''
@@ -43,7 +43,7 @@ MPP 아키텍처는 다음과 같은 구조적 설계를 통해 고성능을 구
 
 아래 그림은 MPP 아키텍처로 구성된 Impala 쿼리 엔진에서 쿼리가 실행되는 과정을 보여 준다.
 
-![impala-query-flow-diagram](https://res.cloudinary.com/dmludowia/image/upload/f_auto,q_auto/v1769494147/impala-query-flow-diagram_qre3de.webp)
+![impala-query-flow-diagram](https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1769494147/impala-query-flow-diagram_qre3de.webp)
 
 Impala 에서 쿼리 요청(Submission) 이 발생하는 상황을 가정해 보자. 사용자가 쿼리를 요청하면, **Coordinator 노드**는 쿼리를 분석해 최적의 실행 계획(Query Plan)을 생성한다. 생성된 실행 계획은 여러 개의 실행 단위인 Fragment 로 쪼개져 클러스터 내의 각 **Executor 노드**로 배포된다. 각 Executor 들은 할당된 실행 단위에 대해 병렬로 연산을 수행하며, 계산된 중간 결과 또는 최종 결과를 다시 Coordinator 에 반환한다. 최종적으로 Coordinator 노드는 이 결과들을 병합(Aggregation / Merge)하여 최종 결과를 생성하고, 이를 사용자에게 반환한다.
 

@@ -4,8 +4,8 @@ date: '2024-02-16'
 author: 'ddev-hyeoncheol'
 category: 'Data Engineering'
 excerpt: 'Impala, Trino 와 같은 MPP 엔진의 분산 처리 효율을 극대화하는 쿼리 최적화 전략에 대해 예시를 통해 알아보자.'
-tags: ['Data Engineering', 'Query Optimization', 'SQL']
-prev: 'massively-parellel-processing'
+tags: ['Data Engineering', 'Query Optimization', 'SQL', 'MPP']
+prev: 'massively-parallel-processing'
 next: ''
 ---
 

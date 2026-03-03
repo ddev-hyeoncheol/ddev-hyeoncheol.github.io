@@ -19,7 +19,7 @@ next: ''
 
 컬럼 기반(Column-based, Columnar) 저장 방식이란, 데이터베이스 테이블의 데이터를 행(row) 단위가 아닌 **열(column) 단위로 묶어서 저장**하는 아키텍처를 의미한다. MySQL, PostgreSQL 과 같은 전통적인 관계형 데이터베이스에서는 키 값에 해당하는 모든 정보를 하나의 row 단위로 저장하는 반면, 컬럼 기반 저장 방식은 각 열을 따로 저장한다. 이를 그림으로 간단히 표현하면, 아래와 같이 나타낼 수 있다.
 
-![rdb-vs-columnar-database-structure](https://res.cloudinary.com/dmludowia/image/upload/f_auto,q_auto/v1769142104/row-vs-column-storage_jcx545.png)
+![rdb-vs-columnar-database-structure](https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1769142104/row-vs-column-storage_jcx545.png)
 
 ### 주요 특징 및 장점
 

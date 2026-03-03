@@ -25,7 +25,7 @@ next: ''
 
 이에 따라 현대적인 아키텍처에서는 Kafka 와 같은 **스트리밍 허브(Streaming Hub)** 를 중심에 두어 **소스 데이터베이스와 하위 시스템 간의 결합도를 낮추고**, 이를 통해 다수의 타겟 시스템이 동일한 변경 이벤트를 각자의 **처리 속도와 목적에 맞게 독립적으로 소비(Consume)** 할 수 있는 구조를 설계한다.
 
-![change-data-capture-pipline-flow](https://res.cloudinary.com/dmludowia/image/upload/f_auto,q_auto/v1770691455/change-data-capture-pipline-flow_m2q70s.webp)
+![change-data-capture-pipline-flow](https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1770691455/change-data-capture-pipline-flow_m2q70s.webp)
 
 ---
 
