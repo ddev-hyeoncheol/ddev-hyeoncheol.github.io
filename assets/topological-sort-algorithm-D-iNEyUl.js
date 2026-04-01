@@ -3,7 +3,7 @@ title: '위상 정렬(Topological Sort) 알고리즘'
 date: '2024-03-29'
 author: 'ddev-hyeoncheol'
 category: 'Algorithm'
-excerpt: '방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn's Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자.'
+excerpt: "방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn's Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자."
 tags: ['Algorithm', 'Graph', 'Topological Sort', 'DAG']
 prev: ''
 next: ''
@@ -133,7 +133,7 @@ def topological_sort(v, adj):
     """
     # 1. 진입 차수(In-degree) 계산
     in_degree = [0] * (v + 1)
-    
+
     for i in range(1, v + 1):
         for neighbor in adj[i]:
             in_degree[neighbor] += 1
@@ -195,24 +195,24 @@ def topological_sort(v, adj):
     """
     visited = [False] * (v + 1)
     stack = []
-    
+
     def dfs(now):
         visited[now] = True
-        
+
         # 2. 현재 노드 및 인접한 노드들을 재귀 방문
         for neighbor in adj[now]:
             if not visited[neighbor]:
                 dfs(neighbor)
-        
+
         # 3. 방문할 인접 노드가 없다면 Stack 에 삽입
         stack.append(now)
-    
+
     # 4. 모든 노드를 방문할 때까지 반복
     for i in range(1, v + 1):
         # 1. 임의의 노드에서 DFS 탐색 시작
         if not visited[i]:
             dfs(i)
-    
+
     # 5. Stack 에 담긴 노드들을 역순으로 꺼내어 결과 반환
     return stack[::-1]
 \`\`\`
@@ -222,8 +222,6 @@ def topological_sort(v, adj):
 실제 Scheduler 와 같은 기능을 구현할 때는 **보통 Kahn's Algorithm 으로 구현**한다. 그 이유는 현재 **실행 가능한 Task 를 Queue 에 담아 즉시 Worker 에 할당할 수 있는 구조**이고, 동작 방식 자체가 **병렬 처리 시스템의 Workflow 와 일치**해 실시간으로 실행 가능한 작업을 추출할 수 있기 때문이다.
 
 반면, DFS 를 활용한 위상 정렬은 **모든 재귀 탐색이 완료되어야 전체 실행 순서를 확정**할 수 있기 때문에, 스케줄링보다는 **순수한 그래프 탐색이나 정적인 종속성 분석 작업**에 주로 사용된다.
-
-
 
 ## 📚 요약 / 마무리
 
