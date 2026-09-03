@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>ERROR LOG</title>
+    <link>https://ddev-hyeoncheol.github.io/</link>
+    <description>ERROR LOG</description>
+    <language>ko</language>
+    <atom:link href="https://ddev-hyeoncheol.github.io/rss.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>위상 정렬(Topological Sort) 알고리즘</title>
+      <link>https://ddev-hyeoncheol.github.io/posts/topological-sort-algorithm/</link>
+      <guid isPermaLink="true">https://ddev-hyeoncheol.github.io/posts/topological-sort-algorithm/</guid>
+      <description>방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn&apos;s Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자.</description>
+      <category>Algorithm</category>
+      <pubDate>Fri, 29 Mar 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>CDC(Change Data Capture) 와 스트리밍 기반 데이터 파이프라인</title>
+      <link>https://ddev-hyeoncheol.github.io/posts/cdc-change-data-capture/</link>
+      <guid isPermaLink="true">https://ddev-hyeoncheol.github.io/posts/cdc-change-data-capture/</guid>
+      <description>전통적인 배치 기반 ETL 의 한계를 넘어, 데이터베이스 변경 이력을 이벤트 스트림으로 전달하는 CDC(Change Data Capture) 와 그 구현 방식들을 정리한다.</description>
+      <category>Data Engineering</category>
+      <pubDate>Fri, 08 Mar 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>MPP(Massively Parallel Processing) 엔진에서의 쿼리 최적화 가이드</title>
+      <link>https://ddev-hyeoncheol.github.io/posts/mpp-engine-query-optimization-guide/</link>
+      <guid isPermaLink="true">https://ddev-hyeoncheol.github.io/posts/mpp-engine-query-optimization-guide/</guid>
+      <description>Impala, Trino 와 같은 MPP 엔진의 분산 처리 효율을 극대화하는 쿼리 최적화 전략에 대해 예시를 통해 알아보자.</description>
+      <category>Data Engineering</category>
+      <pubDate>Fri, 16 Feb 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>MPP(Massively Parallel Processing) 아키텍처</title>
+      <link>https://ddev-hyeoncheol.github.io/posts/massively-parallel-processing/</link>
+      <guid isPermaLink="true">https://ddev-hyeoncheol.github.io/posts/massively-parallel-processing/</guid>
+      <description>여러 노드가 하나의 작업을 병렬로 동시에 처리하는 MPP(Massively Parallel Processing) 아키텍처의 개념과 특징 및 그 활용에 대해 알아보자.</description>
+      <category>Data Engineering</category>
+      <pubDate>Fri, 26 Jan 2024 00:00:00 GMT</pubDate>
+    </item>
+    <item>
+      <title>컬럼 기반(Column-based) 저장 방식</title>
+      <link>https://ddev-hyeoncheol.github.io/posts/column-oriented-storage/</link>
+      <guid isPermaLink="true">https://ddev-hyeoncheol.github.io/posts/column-oriented-storage/</guid>
+      <description>대용량 데이터 분석에 필수적인 컬럼 기반(Column-based) 저장 방식의 개념과 특징을 알아보고, Row-based 방식과 비교해 보자.</description>
+      <category>Data Engineering</category>
+      <pubDate>Fri, 05 Jan 2024 00:00:00 GMT</pubDate>
+    </item>
+  </channel>
+</rss>

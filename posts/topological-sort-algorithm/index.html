@@ -1,0 +1,277 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v7.2.10"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="canonical" href="https://ddev-hyeoncheol.github.io/posts/topological-sort-algorithm/"><link rel="alternate" type="application/rss+xml" title="ERROR LOG" href="https://ddev-hyeoncheol.github.io/rss.xml"><title>위상 정렬(Topological Sort) 알고리즘 :: ERROR LOG</title><meta name="description" content="방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn's Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자."><meta property="og:site_name" content="ERROR LOG"><meta property="og:type" content="article"><meta property="og:title" content="위상 정렬(Topological Sort) 알고리즘"><meta property="og:url" content="https://ddev-hyeoncheol.github.io/posts/topological-sort-algorithm/"><meta property="og:locale" content="ko_KR"><meta property="og:description" content="방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn's Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자."><meta property="og:image" content="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1771483457/topological-sort-graph-1_gv3avt.png"><meta name="twitter:card" content="summary_large_image"><meta property="article:published_time" content="2024-03-29T00:00:00.000Z"><meta property="article:author" content="ddev-hyeoncheol"><meta property="article:section" content="Algorithm"><meta property="article:tag" content="Algorithm"><meta property="article:tag" content="Graph"><meta property="article:tag" content="Topological Sort"><meta property="article:tag" content="DAG"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","headline":"위상 정렬(Topological Sort) 알고리즘","description":"방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn's Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자.","datePublished":"2024-03-29T00:00:00.000Z","author":{"@type":"Person","name":"ddev-hyeoncheol"},"articleSection":"Algorithm","keywords":["Algorithm","Graph","Topological Sort","DAG"],"image":"https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1771483457/topological-sort-graph-1_gv3avt.png","mainEntityOfPage":"https://ddev-hyeoncheol.github.io/posts/topological-sort-algorithm/"}</script><script>
+      // 첫 페인트 전에 실행되어야 테마가 번쩍이지 않는다.
+      // 저장소가 막힌 브라우저에서는 예외가 나므로 감싼다. 이때는 OS 설정을 따른다.
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.dataset.theme = saved;
+      } catch {}
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.cZJA8x7n.css"><link rel="stylesheet" href="/_astro/_id_.CYwEy7He.css"></head><body><header class="site-header" data-astro-cid-nen7h5rs><div class="inner" data-astro-cid-nen7h5rs><a class="brand" href="/" data-astro-cid-nen7h5rs>ERROR LOG</a><div class="right" data-astro-cid-nen7h5rs><nav aria-label="주요" data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs>HOME<span class="marker" aria-hidden="true" data-astro-cid-nen7h5rs></span></a><a href="/posts" aria-current="true" data-astro-cid-nen7h5rs>POSTS<span class="marker" aria-hidden="true" data-astro-cid-nen7h5rs></span></a></nav><button id="theme-toggle" type="button" aria-label="테마 전환" data-astro-cid-l6lhmie6><svg viewBox="0 0 16 16" fill="currentColor" class="icon-to-dark" width="16" height="16" aria-hidden="true" data-astro-cid-l6lhmie6="true">
+  <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z" />
+</svg><svg viewBox="0 0 16 16" fill="currentColor" class="icon-to-light" width="16" height="16" aria-hidden="true" data-astro-cid-l6lhmie6="true">
+  <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z" />
+</svg></button><script type="module">var e=document.getElementById(`theme-toggle`),t=window.matchMedia(`(prefers-color-scheme: dark)`);function n(){let e=document.documentElement.dataset.theme;return e?e===`dark`:t.matches}function r(){e?.setAttribute(`aria-label`,n()?`라이트 모드로 전환`:`다크 모드로 전환`)}function i(){let e=n()?`light`:`dark`;document.documentElement.dataset.theme=e,r();try{localStorage.setItem(`theme`,e)}catch{}}e?.addEventListener(`click`,()=>{if(window.matchMedia(`(prefers-reduced-motion: reduce)`).matches||!document.startViewTransition){i();return}try{document.startViewTransition({update:i,types:[`theme`]})}catch{i()}}),t.addEventListener(`change`,r),r();</script></div></div></header><main><article class="post" data-pagefind-body data-astro-cid-p5wnqomb><h1 data-astro-cid-p5wnqomb>위상 정렬(Topological Sort) 알고리즘</h1><nav class="toc" aria-label="목차" data-headings=".post-body h2, .post-body h3" data-pagefind-ignore data-astro-cid-7k3pnqyz><div class="toc-track" data-astro-cid-7k3pnqyz><span class="toc-marker" aria-hidden="true" data-astro-cid-7k3pnqyz></span><ol data-astro-cid-7k3pnqyz><li data-depth="2" data-astro-cid-7k3pnqyz><a href="#-개요" data-astro-cid-7k3pnqyz>📝 개요</a></li><li data-depth="2" data-astro-cid-7k3pnqyz><a href="#위상-정렬topological-sort-이란" data-astro-cid-7k3pnqyz>위상 정렬(Topological Sort) 이란??</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#dag-directed-acyclic-graph" data-astro-cid-7k3pnqyz>DAG (Directed Acyclic Graph)</a></li><li data-depth="2" data-astro-cid-7k3pnqyz><a href="#위상-정렬-알고리즘---kahns-algorithm" data-astro-cid-7k3pnqyz>위상 정렬 알고리즘 - Kahn’s Algorithm</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#step-1-그래프-초기화-및-전체-노드의-진입-차수-계산" data-astro-cid-7k3pnqyz>Step 1. 그래프 초기화 및 전체 노드의 진입 차수 계산</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#step-2-진입-차수가-0인-노드-식별-및-queue-삽입" data-astro-cid-7k3pnqyz>Step 2. 진입 차수가 0인 노드 식별 및 Queue 삽입</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#step-3-노드-정렬-및-의존성진입-차수-업데이트" data-astro-cid-7k3pnqyz>Step 3. 노드 정렬 및 의존성(진입 차수) 업데이트</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#시간-복잡도-분석" data-astro-cid-7k3pnqyz>시간 복잡도 분석</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#kahns-algorithm-의-python-코드-구현" data-astro-cid-7k3pnqyz>Kahn’s Algorithm 의 Python 코드 구현</a></li><li data-depth="2" data-astro-cid-7k3pnqyz><a href="#위상-정렬-알고리즘---dfs" data-astro-cid-7k3pnqyz>위상 정렬 알고리즘 - DFS</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#시간-복잡도-분석-1" data-astro-cid-7k3pnqyz>시간 복잡도 분석</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#dfs-의-python-코드-구현" data-astro-cid-7k3pnqyz>DFS 의 Python 코드 구현</a></li><li data-depth="3" data-astro-cid-7k3pnqyz><a href="#kahns-algorithm-vs-dfs-기반-위상-정렬" data-astro-cid-7k3pnqyz>Kahn’s Algorithm vs DFS 기반 위상 정렬</a></li><li data-depth="2" data-astro-cid-7k3pnqyz><a href="#-요약--마무리" data-astro-cid-7k3pnqyz>📚 요약 / 마무리</a></li></ol></div></nav><script type="module">var e=document.querySelector(`.toc`),t=document.querySelector(`.toc-marker`),n=e?[...document.querySelectorAll(e.getAttribute(`data-headings`)??``)]:[];if(e&&n.length>0){let r=new Map;for(let t of n){let n=e.querySelector(`a[href="#${CSS.escape(t.id)}"]`);n&&r.set(t.id,n)}let i=[],a=0,o=``;function s(){i=n.map(e=>({id:e.id,top:e.getBoundingClientRect().top+window.scrollY})),a=document.documentElement.scrollHeight-window.innerHeight}function c(){let e=window.scrollY+window.innerHeight*.25,t=i[0].id;for(let n of i){if(n.top>e)break;t=n.id}window.scrollY>=a-2&&(t=i[i.length-1].id),t!==o&&(r.get(o)?.removeAttribute(`aria-current`),r.get(t)?.setAttribute(`aria-current`,`location`),o=t,l())}function l(){let n=r.get(o);if(!t||!n||!e)return;t.style.setProperty(`--marker-y`,`${n.offsetTop}px`),t.style.setProperty(`--marker-h`,`${n.offsetHeight}px`);let i=e.getBoundingClientRect(),a=n.getBoundingClientRect(),s=a.top-i.top-e.clientTop+e.scrollTop,c=s+a.height;s<e.scrollTop?e.scrollTop=s:c>e.scrollTop+e.clientHeight&&(e.scrollTop=c-e.clientHeight)}window.addEventListener(`scroll`,c,{passive:!0}),window.addEventListener(`resize`,()=>{s(),c(),l()}),new ResizeObserver(()=>{s(),c(),l()}).observe(n[0].closest(`.post-body`)??document.body),s(),c(),t?.offsetWidth,t?.classList.add(`is-ready`)}</script><div class="post-body" data-astro-cid-p5wnqomb><h2 id="-개요">📝 개요</h2>
+<p>Airflow 와 같은 Workflow 관리 도구를 사용할 때, DAG 내에 수백 개의 Task 가 의존성에 맞게 차례로 실행되는 것을 볼 수 있다. 이러한 동작이 가능한 이유는 복잡한 노드 간의 의존성을 <strong>위상 정렬(Topological Sort)</strong> 알고리즘으로 처리하기 때문이다.</p>
+<p>이번 포스트에서는 대표적인 위상 정렬 알고리즘인 <strong>Kahn’s Algorithm</strong> 과 <strong>DFS 기반 위상 정렬</strong> 방식에 대해 예시를 통해 알아보고, 각각에 대한 Python 코드 구현까지 함께 다뤄보려고 한다.</p>
+<hr>
+<h2 id="위상-정렬topological-sort-이란">위상 정렬(Topological Sort) 이란??</h2>
+<p><strong>위상 정렬(Topological Sort)</strong> 은 <strong>방향성이 있는 비순환 그래프(DAG) 에서 모든 노드들을 방향성에 어긋나지 않게 선형적으로 나열하는 알고리즘</strong>이다. 위상 정렬의 조건을 수학적으로 정의하면 다음과 같다.</p>
+<blockquote>
+<p>임의의 방향 그래프 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi><mo>=</mo><mo stretchy="false">(</mo><mi>V</mi><mo separator="true">,</mo><mi>E</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">G = (V, E)</annotation></semantics></math></span> 에서, 모든 간선 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">(</mo><mi>u</mi><mo separator="true">,</mo><mi>v</mi><mo stretchy="false">)</mo><mo>∈</mo><mi>E</mi></mrow><annotation encoding="application/x-tex">(u, v) \in E</annotation></semantics></math></span> 에 대하여 다음 조건을 만족하는 선형 순서 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi></mrow><annotation encoding="application/x-tex">f</annotation></semantics></math></span> 를 찾는 것 :</p>
+<div class="math-block"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mstyle mathsize="1.2em"><mi>f</mi><mo stretchy="false">(</mo><mi>u</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>f</mi><mo stretchy="false">(</mo><mi>v</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\large f(u) &lt; f(v)</annotation></semantics></math></span></div>
+<p>여기서 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math></span> 은 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">n</annotation></semantics></math></span> 이 정렬된 리스트에서 차지하는 인덱스 혹은 순서를 의미한다.</p>
+</blockquote>
+<p>즉, <strong>모든 간선의 방향이 왼쪽에서 오른쪽으로 향하도록 노드들을 나열하는 것</strong>이 위상 정렬의 목표이다. 한 가지 흥미로운 특징은, 그래프의 구조에 따라 유효한 <strong>정렬 순서가 여러 개 존재할 수 있다는 점</strong>이다. 이는 데이터 파이프라인이나 빌드 시스템에서 의존성이 없는 특정 태스크들을 <strong>병렬로 처리할 수 있음을 의미</strong>하며, 리소스를 효율적으로 분배하는 근거가 된다.</p>
+<h3 id="dag-directed-acyclic-graph">DAG (Directed Acyclic Graph)</h3>
+<p>위상 정렬을 수행하기 위해서 그래프는 반드시 <strong>방향성이 있는 비순환 그래프(DAG, Directed Acyclic Graph)</strong> 여야 한다. DAG 는 다음과 같은 두 가지 속성을 가진다.</p>
+<ul>
+<li><strong>방향성(Directed)</strong> : 노드 간 간선에 방향이 존재해 우선순위나 흐름이 명확함</li>
+<li><strong>비순환성(Acyclic)</strong> : 그래프 내에 사이클(Cycle) 이 존재하지 않음</li>
+</ul>
+<p>만약 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>→</mo><mi>B</mi></mrow><annotation encoding="application/x-tex">A \to B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>→</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">B \to C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi><mo>→</mo><mi>A</mi></mrow><annotation encoding="application/x-tex">C \to A</annotation></semantics></math></span> 와 같은 사이클이 존재한다면, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>f</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>f</mi><mo stretchy="false">(</mo><mi>B</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>f</mi><mo stretchy="false">(</mo><mi>C</mi><mo stretchy="false">)</mo><mo>&lt;</mo><mi>f</mi><mo stretchy="false">(</mo><mi>A</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">f(A) &lt; f(B) &lt; f(C) &lt; f(A)</annotation></semantics></math></span> 가 되어 모순이 발생한다. 따라서 사이클이 있는 그래프에서는 선형적인 우선순위를 정의할 수 없으며, 위상 정렬 또한 불가능하다.</p>
+<hr>
+<h2 id="위상-정렬-알고리즘---kahns-algorithm">위상 정렬 알고리즘 - Kahn’s Algorithm</h2>
+<p>위상 정렬을 구현하는 대표적인 방법 중 하나인 <strong>Kahn’s Algorithm</strong> 은 그래프의 <strong>진입 차수(In-degree)</strong> 를 바탕으로 노드를 정렬한다. 알고리즘의 동작 과정은 다음과 같다.</p>
+<blockquote>
+<ol>
+<li>전체 노드의 진입 차수를 계산한다.</li>
+<li>진입 차수가 0인 노드(Upstream 이 없는 노드)를 전부 Queue 에 넣는다.</li>
+<li>Queue 가 빌 때까지 다음 과정을 반복한다.
+<ul>
+<li>Queue 에서 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> 를 꺼내 정렬 결과에 추가한다.</li>
+<li>노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> 와 연결된 모든 간선을 제거한다. (<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>u</mi></mrow><annotation encoding="application/x-tex">u</annotation></semantics></math></span> 와 간선으로 연결된 모든 노드의 진입 차수를 1씩 감소시킨다.)</li>
+<li>간선 제거 후 새롭게 진입 차수가 0이 된 노드를 다시 Queue 에 넣는다.</li>
+</ul>
+</li>
+</ol>
+</blockquote>
+<p>여기서, 진입 차수란, <strong>방향 그래프에서 특정 노드로 들어오는 간선의 개수</strong>를 의미하며, 반대로 진출 차수는 특정 노드에서 나가는 간선의 개수를 의미한다. 예를 들어 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi><mo>→</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">A \to C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo>→</mo><mi>C</mi></mrow><annotation encoding="application/x-tex">B \to C</annotation></semantics></math></span> 일 때, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span> 는 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span> 와 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span> 두 개의 Upstream 노드를 가지므로 <strong>진입 차수(In-degree) 가 2</strong> 가 된다.</p>
+<p>Kahn’s Algorithm 의 가장 큰 장점은, <strong>정렬과 동시에 사이클을 탐지할 수 있다는 점</strong>이다. 사이클에 포함된 노드들은 서로를 선행 조건으로 가지므로 진입 차수가 0이 될 수 없고, Queue 에 삽입되지 못한 채 알고리즘이 종료된다. 따라서 정렬 결과 리스트의 길이가 전체 노드의 수보다 적다면 그래프에 사이클이 존재한다는 것을 알 수 있다.</p>
+<p>알고리즘의 동작 과정을 예시 그래프를 통해 설명하면 아래와 같다.</p>
+<h3 id="step-1-그래프-초기화-및-전체-노드의-진입-차수-계산">Step 1. 그래프 초기화 및 전체 노드의 진입 차수 계산</h3>
+<figure><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1771483457/topological-sort-graph-1_gv3avt.png" alt="" loading="lazy" decoding="async"><figcaption>예제 그래프. A는 C와 D로, B는 C와 E로, C는 D와 E로, D는 F와 G로, E와 F는 H로 향한다.</figcaption></figure>
+<p>먼저, 전체 그래프를 탐색해 각 노드의 <strong>진입 차수(In-degree)</strong> 를 계산한다. 위상 정렬에서 진입 차수는 특정 노드를 방문(Task 시작) 하기 위해 먼저 방문해야 하는 노드의 수(선행 작업의 수) 를 의미한다. 위 그래프 예시에서 각 노드의 진입 차수를 계산하면 아래와 같다.</p>
+<table>
+<thead>
+<tr>
+<th>노드</th>
+<th>A</th>
+<th>B</th>
+<th>C</th>
+<th>D</th>
+<th>E</th>
+<th>F</th>
+<th>G</th>
+<th>H</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>진입 차수</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>2</td>
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="step-2-진입-차수가-0인-노드-식별-및-queue-삽입">Step 2. 진입 차수가 0인 노드 식별 및 Queue 삽입</h3>
+<figure><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1772504160/topological-sort-graph-2_b36cok.png" alt="" loading="lazy" decoding="async"><figcaption>진입 차수가 0인 A와 B는 Queue에 들어가 빨간색, 나머지 노드는 대기 상태인 파란색으로 표시된 그래프.</figcaption></figure>
+<p>계산된 진입 차수를 바탕으로, 차수가 0인 노드를 찾아 Queue 에 삽입한다. 이 노드들은 Upstream 이 존재하지 않아 즉시 방문 가능한 상태임을 의미한다. 예시 그래프에서는 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span> 와 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span> 가 Queue 에 삽입되며, 이들은 각각 독립적인 시작점이 될 수 있다. <strong>어떤 노드를 먼저 처리하는가에 따라 최종 정렬 결과가 달라질 수 있고</strong>, 이 때문에 위상 정렬의 결과가 단 하나의 정답만을 가지지 않는 것이다.</p>
+<p>현재 Step 에서 실행 대기열 <code>Queue</code> 와 정렬 결과 리스트 <code>Sorted</code> 의 상태는 다음과 같다.</p>
+<ul>
+<li><code>Queue</code> : [<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>]</li>
+<li><code>Sorted</code> : [ ]</li>
+</ul>
+<h3 id="step-3-노드-정렬-및-의존성진입-차수-업데이트">Step 3. 노드 정렬 및 의존성(진입 차수) 업데이트</h3>
+<figure><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/f_auto,q_auto/v1772504160/topological-sort-graph-3_qnl81v.png" alt="" loading="lazy" decoding="async"><figcaption>처리를 마친 A는 초록색으로 바뀌고 A에서 나가는 간선 두 개는 지워졌다. C와 D의 진입 차수가 2에서 1로 줄어든 것이 함께 표시되어 있다.</figcaption></figure>
+<p>이제 Queue 가 빌 때까지 노드를 추출하고 의존성을 업데이트하는 과정을 반복한다. 먼저 Queue 에서 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span> 를 꺼내어 처리한다고 가정해 보자.</p>
+<ol>
+<li>노드 방문 처리 : Queue 에서 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span> 를 꺼내 정렬 결과에 추가한다.</li>
+<li>의존성 제거 : 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span> 와 연결된 모든 간선을 제거하고, 간선으로 연결되어 있던 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span> 의 진입 차수를 각각 1씩 감소시킨다.
+<ul>
+<li>노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span> : 진입 차수 2 → 1</li>
+<li>노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span> : 진입 차수 2 → 1</li>
+</ul>
+</li>
+<li>신규 노드 투입 : 간선 제거 후 새롭게 진입 차수가 0이 된 노드를 다시 Queue 에 넣는다. (이번 회차에서는 노드 <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span> 모두 진입 차수가 1이므로 Queue 에 추가되지 않음)</li>
+</ol>
+<p>첫 번째 회차를 마친 후 실행 대기열 <code>Queue</code> 와 정렬 결과 리스트 <code>Sorted</code> 의 상태는 다음과 같다.</p>
+<ul>
+<li><code>Queue</code> : [<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>]</li>
+<li><code>Sorted</code> : [<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>]</li>
+</ul>
+<p>동일한 논리로 회차를 반복해 모든 노드를 방문했을 때, <code>Queue</code> 와 <code>Sorted</code> 리스트의 변화를 정리하면 다음 테이블과 같다.</p>
+<table>
+<thead>
+<tr>
+<th>회차</th>
+<th>추출 노드</th>
+<th>Queue</th>
+<th>Sorted</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>초기 상태</td>
+<td>-</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>]</td>
+<td>[ ]</td>
+</tr>
+<tr>
+<td>1회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>2회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>3회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>4회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>5회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>6회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>7회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span></td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span>]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>]</td>
+</tr>
+<tr>
+<td>8회차</td>
+<td><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span></td>
+<td>[ ]</td>
+<td>[<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>A</mi></mrow><annotation encoding="application/x-tex">A</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi></mrow><annotation encoding="application/x-tex">B</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>C</mi></mrow><annotation encoding="application/x-tex">C</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>D</mi></mrow><annotation encoding="application/x-tex">D</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>G</mi></mrow><annotation encoding="application/x-tex">G</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>F</mi></mrow><annotation encoding="application/x-tex">F</annotation></semantics></math></span>, <span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi></mrow><annotation encoding="application/x-tex">H</annotation></semantics></math></span>]</td>
+</tr>
+</tbody>
+</table>
+<h3 id="시간-복잡도-분석">시간 복잡도 분석</h3>
+<p>Kahn’s Algorithm 은 <strong>모든 노드(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span>) 와 간선(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>) 을 정확히 한 번씩 확인</strong>하기 때문에 매우 효율적이며, 시간 복잡도는 다음과 같다.</p>
+<br>
+<div class="math-block"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mstyle mathsize="1.44em"><mi>O</mi><mo stretchy="false">(</mo><mi>V</mi><mo>+</mo><mi>E</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\Large O(V + E)</annotation></semantics></math></span></div>
+<br>
+<h3 id="kahns-algorithm-의-python-코드-구현">Kahn’s Algorithm 의 Python 코드 구현</h3>
+<p>노드 간의 연결 관계를 표현한 인접 리스트가 주어졌을 때, Kahn’s Algorithm 을 간단히 구현하면 아래와 같다. 여기서 <strong>Queue 가 빌 때까지 모든 노드를 방문하지 못했다면, 그래프에 사이클이 존재</strong>하는 것으로 간주할 수 있다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> collections </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> deque</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> topological_sort</span><span style="color:#E1E4E8">(v, adj):</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    v  : 노드의 개수 (ex: 8)</span></span>
+<span class="line"><span style="color:#9ECBFF">    adj: 인접 리스트 (ex: { 1: [3, 4], 2: [3, 5], ...})</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#6A737D">    # 1. 진입 차수(In-degree) 계산</span></span>
+<span class="line"><span style="color:#E1E4E8">    in_degree </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> (v </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#79B8FF"> range</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, v </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#F97583">        for</span><span style="color:#E1E4E8"> neighbor </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> adj[i]:</span></span>
+<span class="line"><span style="color:#E1E4E8">            in_degree[neighbor] </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # 2. 진입 차수가 0인 노드를 Queue에 삽입</span></span>
+<span class="line"><span style="color:#E1E4E8">    queue </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> deque([i </span><span style="color:#F97583">for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#79B8FF"> range</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, v </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">if</span><span style="color:#E1E4E8"> in_degree[i] </span><span style="color:#F97583">==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"><span style="color:#E1E4E8">    result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # 3. Queue가 빌 때까지 반복</span></span>
+<span class="line"><span style="color:#F97583">    while</span><span style="color:#E1E4E8"> queue:</span></span>
+<span class="line"><span style="color:#E1E4E8">        current </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> queue.popleft()</span></span>
+<span class="line"><span style="color:#E1E4E8">        result.append(current)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">        # 연결된 노드들의 진입 차수 감소</span></span>
+<span class="line"><span style="color:#F97583">        for</span><span style="color:#E1E4E8"> neighbor </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> adj[current]:</span></span>
+<span class="line"><span style="color:#E1E4E8">            in_degree[neighbor] </span><span style="color:#F97583">-=</span><span style="color:#79B8FF"> 1</span></span>
+<span class="line"><span style="color:#6A737D">            # 새롭게 0이 된 노드를 Queue에 삽입</span></span>
+<span class="line"><span style="color:#F97583">            if</span><span style="color:#E1E4E8"> in_degree[neighbor] </span><span style="color:#F97583">==</span><span style="color:#79B8FF"> 0</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#E1E4E8">                queue.append(neighbor)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # 모든 노드를 방문하지 못했다면 사이클이 존재함</span></span>
+<span class="line"><span style="color:#F97583">    if</span><span style="color:#79B8FF"> len</span><span style="color:#E1E4E8">(result) </span><span style="color:#F97583">!=</span><span style="color:#E1E4E8"> v:</span></span>
+<span class="line"><span style="color:#F97583">        return</span><span style="color:#9ECBFF"> "Cycle detected!"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> result</span></span></code></pre>
+<hr>
+<h2 id="위상-정렬-알고리즘---dfs">위상 정렬 알고리즘 - DFS</h2>
+<p>Kahn’s Algorithm 외에도 <strong>DFS(깊이 우선 탐색)</strong> 를 활용해 위상 정렬을 구현할 수 있다. 이 방식은 <strong>특정 노드에서 출발해 갈 수 있는 가장 먼 노드까지 탐색을 마친 뒤, 탐색이 종료되는 순서의 역순으로 노드를 나열</strong>하는 것이 핵심이다. 알고리즘의 동작 과정은 다음과 같다.</p>
+<blockquote>
+<ol>
+<li>방문하지 않은 임의의 노드를 선택해 DFS 탐색을 시작한다.</li>
+<li>현재 노드와 연결된 인접 노드들을 재귀적으로 방문한다.</li>
+<li>더 이상 방문할 인접 노드가 없다면, 현재 노드를 Stack 에 넣는다.</li>
+<li>모든 노드를 방문할 때까지 위 과정을 반복한다.</li>
+<li>탐색이 모두 종료된 후, Stack 에 담긴 노드들을 하나씩 꺼내어 정렬 결과에 추가한다.</li>
+</ol>
+</blockquote>
+<h3 id="시간-복잡도-분석-1">시간 복잡도 분석</h3>
+<p><strong>모든 노드(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>V</mi></mrow><annotation encoding="application/x-tex">V</annotation></semantics></math></span>) 와 간선(<span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>E</mi></mrow><annotation encoding="application/x-tex">E</annotation></semantics></math></span>) 을 한 번씩 확인</strong>하므로 시간 복잡도는 Kahn’s Algorithm 과 동일하다.</p>
+<br>
+<div class="math-block"><span class="katex"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mstyle mathsize="1.44em"><mi>O</mi><mo stretchy="false">(</mo><mi>V</mi><mo>+</mo><mi>E</mi><mo stretchy="false">)</mo></mstyle></mrow><annotation encoding="application/x-tex">\Large O(V + E)</annotation></semantics></math></span></div>
+<br>
+<h3 id="dfs-의-python-코드-구현">DFS 의 Python 코드 구현</h3>
+<p>DFS 기반 위상 정렬 알고리즘은 별도의 상태 배열이 존재하지 않으면 <strong>사이클을 명시적으로 탐지하지 못한다</strong>. 아래 코드는 사이클 검출 로직을 생략한 기본적인 DFS 기반 위상 정렬 알고리즘의 구현이다.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> topological_sort</span><span style="color:#E1E4E8">(v, adj):</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#9ECBFF">    v  : 노드의 개수 (ex: 8)</span></span>
+<span class="line"><span style="color:#9ECBFF">    adj: 인접 리스트 (ex: { 1: [3, 4], 2: [3, 5], ...})</span></span>
+<span class="line"><span style="color:#9ECBFF">    """</span></span>
+<span class="line"><span style="color:#E1E4E8">    visited </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">False</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> (v </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">    stack </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> []</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    def</span><span style="color:#B392F0"> dfs</span><span style="color:#E1E4E8">(now):</span></span>
+<span class="line"><span style="color:#E1E4E8">        visited[now] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> True</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">        # 2. 현재 노드 및 인접한 노드들을 재귀 방문</span></span>
+<span class="line"><span style="color:#F97583">        for</span><span style="color:#E1E4E8"> neighbor </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> adj[now]:</span></span>
+<span class="line"><span style="color:#F97583">            if</span><span style="color:#F97583"> not</span><span style="color:#E1E4E8"> visited[neighbor]:</span></span>
+<span class="line"><span style="color:#E1E4E8">                dfs(neighbor)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">        # 3. 방문할 인접 노드가 없다면 Stack 에 삽입</span></span>
+<span class="line"><span style="color:#E1E4E8">        stack.append(now)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # 4. 모든 노드를 방문할 때까지 반복</span></span>
+<span class="line"><span style="color:#F97583">    for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#79B8FF"> range</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, v </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#6A737D">        # 1. 임의의 노드에서 DFS 탐색 시작</span></span>
+<span class="line"><span style="color:#F97583">        if</span><span style="color:#F97583"> not</span><span style="color:#E1E4E8"> visited[i]:</span></span>
+<span class="line"><span style="color:#E1E4E8">            dfs(i)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D">    # 5. Stack 에 담긴 노드들을 역순으로 꺼내어 결과 반환</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> stack[::</span><span style="color:#F97583">-</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">]</span></span></code></pre>
+<h3 id="kahns-algorithm-vs-dfs-기반-위상-정렬">Kahn’s Algorithm vs DFS 기반 위상 정렬</h3>
+<p>실제 Scheduler 와 같은 기능을 구현할 때는 <strong>보통 Kahn’s Algorithm 으로 구현</strong>한다. 그 이유는 현재 <strong>실행 가능한 Task 를 Queue 에 담아 즉시 Worker 에 할당할 수 있는 구조</strong>이고, 동작 방식 자체가 <strong>병렬 처리 시스템의 Workflow 와 일치</strong>해 실시간으로 실행 가능한 작업을 추출할 수 있기 때문이다.</p>
+<p>반면, DFS 를 활용한 위상 정렬은 <strong>모든 재귀 탐색이 완료되어야 전체 실행 순서를 확정</strong>할 수 있기 때문에, 스케줄링보다는 <strong>순수한 그래프 탐색이나 정적인 종속성 분석 작업</strong>에 주로 사용된다.</p>
+<h2 id="-요약--마무리">📚 요약 / 마무리</h2>
+<ul>
+<li><strong>위상 정렬(Topological Sort)</strong> 은 <strong>방향성이 있는 비순환 그래프(DAG) 에서 모든 노드들을 방향성에 어긋나지 않게 선형적으로 나열하는 알고리즘</strong>이다.</li>
+<li>위상 정렬의 구현 방식으로는 진입 차수를 활용하는 <strong>Kahn’s Algorithm</strong> 과 재귀 탐색을 활용하는 <strong>DFS 기반 위상 정렬 알고리즘</strong>이 있다.</li>
+<li>특히, Kahn’s Algorithm 은 <strong>병렬 처리 시스템의 Workflow 와 동작 방식이 일치</strong>해, <strong>Scheduler 와 같은 기능을 구현할 때 일반적으로 사용</strong>된다.</li>
+</ul>
+</div></article></main><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="inner" data-astro-cid-jo6i4kqk><small data-astro-cid-jo6i4kqk>© 2026 ddev-hyeoncheol · <a href="/licenses.txt" rel="license" data-astro-cid-jo6i4kqk>CC BY 4.0</a></small><nav aria-label="사이트 정보" data-astro-cid-jo6i4kqk><a href="/rss.xml" data-astro-cid-jo6i4kqk><svg viewBox="0 0 16 16" fill="currentColor" class="icon" width="16" height="16" aria-hidden="true" data-astro-cid-jo6i4kqk="true">
+  <path d="M2.002 2.725a.75.75 0 0 1 .797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 0 1-1.497.098 10.502 10.502 0 0 0-9.776-9.776.747.747 0 0 1-.7-.798ZM2.84 7.05h-.002a7.002 7.002 0 0 1 6.113 6.111.75.75 0 0 1-1.49.178 5.503 5.503 0 0 0-4.8-4.8.75.75 0 0 1 .179-1.489ZM2 13a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" />
+</svg>RSS</a><a href="https://github.com/ddev-hyeoncheol" target="_blank" rel="noopener" aria-label="GitHub (새 창)" data-astro-cid-jo6i4kqk><svg viewBox="0 0 16 16" fill="currentColor" class="icon" width="16" height="16" aria-hidden="true" data-astro-cid-jo6i4kqk="true">
+  <path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656" />
+</svg>GitHub</a></nav></div></footer><a class="to-top" href="#top" aria-label="맨 위로" data-astro-cid-esobc3xq><svg viewBox="0 0 16 16" fill="currentColor" width="16" height="16" aria-hidden="true" data-astro-cid-esobc3xq="true">
+  <path d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z" />
+</svg></a><script type="module">var e=document.querySelector(`.to-top`);if(e){let t=!1;function n(){let n=window.scrollY>window.innerHeight;n!==t&&(t=n,e.classList.toggle(`is-visible`,t))}window.addEventListener(`scroll`,n,{passive:!0}),n()}</script></body></html>
