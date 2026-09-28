@@ -1,0 +1,11 @@
+<!-- ERROR LOG 자체 제작 목록형 보기 아이콘 -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 16 16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linecap="round"
+  stroke-width="1.5"
+>
+  <path d="M2.5 4h1m2.5 0h7.5M2.5 8h1m2.5 0h7.5m-11 4h1m2.5 0h7.5" />
+</svg>

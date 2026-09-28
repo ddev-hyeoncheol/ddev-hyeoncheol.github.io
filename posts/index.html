@@ -1,16 +1,386 @@
-<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v7.2.10"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="icon" href="/favicon.ico"><link rel="canonical" href="https://ddev-hyeoncheol.github.io/posts/"><link rel="alternate" type="application/rss+xml" title="ERROR LOG" href="https://ddev-hyeoncheol.github.io/rss.xml"><title>POSTS :: ERROR LOG</title><meta property="og:site_name" content="ERROR LOG"><meta property="og:type" content="website"><meta property="og:title" content="POSTS"><meta property="og:url" content="https://ddev-hyeoncheol.github.io/posts/"><meta property="og:locale" content="ko_KR"><meta name="twitter:card" content="summary"><script>
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="generator" content="Astro v7.2.10"><link rel="preload" href="/fonts/league-spartan/league-spartan-error-log-500.woff2" as="font" type="font/woff2" crossorigin><link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3"><link rel="icon" href="/favicon.ico?v=3"><link rel="canonical" href="https://ddev-hyeoncheol.github.io/posts/"><link rel="alternate" type="application/rss+xml" title="ERROR LOG" href="https://ddev-hyeoncheol.github.io/rss.xml"><title>POSTS :: ERROR LOG</title><meta property="og:site_name" content="ERROR LOG"><meta property="og:type" content="website"><meta property="og:title" content="POSTS"><meta property="og:url" content="https://ddev-hyeoncheol.github.io/posts/"><meta property="og:locale" content="ko_KR"><meta name="twitter:card" content="summary"><script>
       // 첫 페인트 전에 실행되어야 테마가 번쩍이지 않는다.
       // 저장소가 막힌 브라우저에서는 예외가 나므로 감싼다. 이때는 OS 설정을 따른다.
       try {
         const saved = localStorage.getItem('theme');
         if (saved) document.documentElement.dataset.theme = saved;
       } catch {}
-    </script><link rel="stylesheet" href="/_astro/BaseLayout.cZJA8x7n.css"><style>.archive[data-astro-cid-bxdp5n4l]{max-width:var(--body-width);padding:2.5rem var(--gutter) 5rem;margin:0 auto}@media (width>=60rem){.archive[data-astro-cid-bxdp5n4l]{max-width:var(--shell-width);padding:3.5rem var(--gutter-wide) 6rem}}h1[data-astro-cid-bxdp5n4l]{letter-spacing:.02em;margin:0 0 2.5rem;font-size:1.875rem;line-height:1.35}.year[data-astro-cid-bxdp5n4l]+.year[data-astro-cid-bxdp5n4l]{margin-top:2.5rem}h2[data-astro-cid-bxdp5n4l]{border-bottom:1px solid var(--border);color:var(--fg-muted);letter-spacing:.02em;margin:0 0 .75rem;padding-bottom:.4rem;font-size:.875rem;font-weight:600}ul[data-astro-cid-bxdp5n4l]{margin:0;padding:0;list-style:none}a[data-astro-cid-bxdp5n4l]{color:inherit;border-radius:6px;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;column-gap:.875rem;margin:0 -.75rem;padding:.5rem .75rem;line-height:1.5;text-decoration:none;display:grid}a[data-astro-cid-bxdp5n4l]:hover{background:var(--accent-subtle)}a[data-astro-cid-bxdp5n4l]:hover .title[data-astro-cid-bxdp5n4l]{text-underline-offset:.2em;text-decoration:underline}time[data-astro-cid-bxdp5n4l]{color:var(--fg-muted);font-variant-numeric:tabular-nums;font-size:.875rem}.category[data-astro-cid-bxdp5n4l]{color:var(--fg-muted);white-space:nowrap;font-size:.8125rem}@media (width<32rem){a[data-astro-cid-bxdp5n4l]{grid-template-columns:auto minmax(0,1fr)}.category[data-astro-cid-bxdp5n4l]{grid-column:2}}
-</style></head><body><header class="site-header" data-astro-cid-nen7h5rs><div class="inner" data-astro-cid-nen7h5rs><a class="brand" href="/" data-astro-cid-nen7h5rs>ERROR LOG</a><div class="right" data-astro-cid-nen7h5rs><nav aria-label="주요" data-astro-cid-nen7h5rs><a href="/" data-astro-cid-nen7h5rs>HOME<span class="marker" aria-hidden="true" data-astro-cid-nen7h5rs></span></a><a href="/posts" aria-current="page" data-astro-cid-nen7h5rs>POSTS<span class="marker" aria-hidden="true" data-astro-cid-nen7h5rs></span></a></nav><button id="theme-toggle" type="button" aria-label="테마 전환" data-astro-cid-l6lhmie6><svg viewBox="0 0 16 16" fill="currentColor" class="icon-to-dark" width="16" height="16" aria-hidden="true" data-astro-cid-l6lhmie6="true">
+    </script><link rel="stylesheet" href="/_astro/BaseLayout.BBOAUseQ.css"><link rel="stylesheet" href="/_astro/index.CxG7bspN.css"></head><body><header class="site-header" data-astro-cid-nen7h5rs><div class="inner" data-astro-cid-nen7h5rs><a class="brand" href="/" data-astro-cid-nen7h5rs><img src="/favicon.svg?v=3" width="20" height="20" alt="" data-astro-cid-nen7h5rs><span class="brand-name" data-astro-cid-nen7h5rs>ERROR LOG</span></a><div id="site-header-menu" class="header-menu" data-header-menu data-astro-cid-pdla3bba><div class="desktop-navigation" data-desktop-navigation data-astro-cid-pdla3bba><nav id="primary-navigation" aria-label="주요" data-astro-cid-pdla3bba><a href="/" data-astro-cid-pdla3bba>HOME<span class="marker" aria-hidden="true" data-astro-cid-pdla3bba></span></a><a href="/posts" aria-current="page" data-astro-cid-pdla3bba>POSTS<span class="marker" aria-hidden="true" data-astro-cid-pdla3bba></span></a></nav></div><dialog id="primary-navigation-dialog" aria-labelledby="primary-navigation-title" data-astro-cid-pdla3bba><div class="dialog-header" data-astro-cid-pdla3bba><span id="primary-navigation-title" class="dialog-title" data-astro-cid-pdla3bba>MENU</span><button class="dialog-close" type="button" aria-label="메뉴 닫기" data-astro-cid-pdla3bba><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" width="16" height="16" aria-hidden="true" data-astro-cid-pdla3bba="true">
+  <path d="m3.5 3.5 9 9m0-9-9 9" />
+</svg></button></div><div class="dialog-navigation" data-dialog-navigation data-astro-cid-pdla3bba></div></dialog><div class="theme-control" data-astro-cid-pdla3bba><button id="theme-toggle" type="button" aria-label="테마 전환" data-astro-cid-l6lhmie6><svg viewBox="0 0 16 16" fill="currentColor" class="icon-to-dark" width="16" height="16" aria-hidden="true" data-astro-cid-l6lhmie6="true">
   <path d="M9.598 1.591a.749.749 0 0 1 .785-.175 7.001 7.001 0 1 1-8.967 8.967.75.75 0 0 1 .961-.96 5.5 5.5 0 0 0 7.046-7.046.75.75 0 0 1 .175-.786Zm1.616 1.945a7 7 0 0 1-7.678 7.678 5.499 5.499 0 1 0 7.678-7.678Z" />
 </svg><svg viewBox="0 0 16 16" fill="currentColor" class="icon-to-light" width="16" height="16" aria-hidden="true" data-astro-cid-l6lhmie6="true">
   <path d="M8 12a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm0-1.5a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Zm5.657-8.157a.75.75 0 0 1 0 1.061l-1.061 1.06a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734l1.06-1.06a.75.75 0 0 1 1.06 0Zm-9.193 9.193a.75.75 0 0 1 0 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061a.75.75 0 0 1 1.061 0ZM8 0a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0V.75A.75.75 0 0 1 8 0ZM3 8a.75.75 0 0 1-.75.75H.75a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 3 8Zm13 0a.75.75 0 0 1-.75.75h-1.5a.75.75 0 0 1 0-1.5h1.5A.75.75 0 0 1 16 8Zm-8 5a.75.75 0 0 1 .75.75v1.5a.75.75 0 0 1-1.5 0v-1.5A.75.75 0 0 1 8 13Zm3.536-1.464a.75.75 0 0 1 1.06 0l1.061 1.06a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 0-1.061ZM2.343 2.343a.75.75 0 0 1 1.061 0l1.06 1.061a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018l-1.06-1.06a.75.75 0 0 1 0-1.06Z" />
-</svg></button><script type="module">var e=document.getElementById(`theme-toggle`),t=window.matchMedia(`(prefers-color-scheme: dark)`);function n(){let e=document.documentElement.dataset.theme;return e?e===`dark`:t.matches}function r(){e?.setAttribute(`aria-label`,n()?`라이트 모드로 전환`:`다크 모드로 전환`)}function i(){let e=n()?`light`:`dark`;document.documentElement.dataset.theme=e,r();try{localStorage.setItem(`theme`,e)}catch{}}e?.addEventListener(`click`,()=>{if(window.matchMedia(`(prefers-reduced-motion: reduce)`).matches||!document.startViewTransition){i();return}try{document.startViewTransition({update:i,types:[`theme`]})}catch{i()}}),t.addEventListener(`change`,r),r();</script></div></div></header><main><div class="archive" data-astro-cid-bxdp5n4l><h1 data-astro-cid-bxdp5n4l>POSTS</h1><section class="year" data-astro-cid-bxdp5n4l><h2 data-astro-cid-bxdp5n4l>2024</h2><ul data-astro-cid-bxdp5n4l><li data-astro-cid-bxdp5n4l><a href="/posts/topological-sort-algorithm/" data-astro-cid-bxdp5n4l><time datetime="2024-03-29" data-astro-cid-bxdp5n4l>03.29</time><span class="title" data-astro-cid-bxdp5n4l>위상 정렬(Topological Sort) 알고리즘</span><span class="category" data-astro-cid-bxdp5n4l>Algorithm</span></a></li><li data-astro-cid-bxdp5n4l><a href="/posts/cdc-change-data-capture/" data-astro-cid-bxdp5n4l><time datetime="2024-03-08" data-astro-cid-bxdp5n4l>03.08</time><span class="title" data-astro-cid-bxdp5n4l>CDC(Change Data Capture) 와 스트리밍 기반 데이터 파이프라인</span><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></a></li><li data-astro-cid-bxdp5n4l><a href="/posts/mpp-engine-query-optimization-guide/" data-astro-cid-bxdp5n4l><time datetime="2024-02-16" data-astro-cid-bxdp5n4l>02.16</time><span class="title" data-astro-cid-bxdp5n4l>MPP(Massively Parallel Processing) 엔진에서의 쿼리 최적화 가이드</span><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></a></li><li data-astro-cid-bxdp5n4l><a href="/posts/massively-parallel-processing/" data-astro-cid-bxdp5n4l><time datetime="2024-01-26" data-astro-cid-bxdp5n4l>01.26</time><span class="title" data-astro-cid-bxdp5n4l>MPP(Massively Parallel Processing) 아키텍처</span><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></a></li><li data-astro-cid-bxdp5n4l><a href="/posts/column-oriented-storage/" data-astro-cid-bxdp5n4l><time datetime="2024-01-05" data-astro-cid-bxdp5n4l>01.05</time><span class="title" data-astro-cid-bxdp5n4l>컬럼 기반(Column-based) 저장 방식</span><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></a></li></ul></section></div></main><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="inner" data-astro-cid-jo6i4kqk><small data-astro-cid-jo6i4kqk>© 2026 ddev-hyeoncheol · <a href="/licenses.txt" rel="license" data-astro-cid-jo6i4kqk>CC BY 4.0</a></small><nav aria-label="사이트 정보" data-astro-cid-jo6i4kqk><a href="/rss.xml" data-astro-cid-jo6i4kqk><svg viewBox="0 0 16 16" fill="currentColor" class="icon" width="16" height="16" aria-hidden="true" data-astro-cid-jo6i4kqk="true">
+</svg></button><script type="module">var e=document.getElementById(`theme-toggle`),t=window.matchMedia(`(prefers-color-scheme: dark)`);function n(){let e=document.documentElement.dataset.theme;return e?e===`dark`:t.matches}function r(){e?.setAttribute(`aria-label`,n()?`라이트 모드로 전환`:`다크 모드로 전환`)}function i(){let e=n()?`light`:`dark`;document.documentElement.dataset.theme=e,r();try{localStorage.setItem(`theme`,e)}catch{}}e?.addEventListener(`click`,()=>{if(window.matchMedia(`(prefers-reduced-motion: reduce)`).matches||!document.startViewTransition){i();return}try{document.startViewTransition({update:i,types:[`theme`]})}catch{i()}}),t.addEventListener(`change`,r),r();</script></div><button class="menu-toggle" type="button" aria-label="메뉴 열기" aria-expanded="false" aria-haspopup="dialog" aria-controls="primary-navigation-dialog" data-astro-cid-pdla3bba><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" width="16" height="16" aria-hidden="true" data-astro-cid-pdla3bba="true">
+  <path d="M2.5 4h11M2.5 8h11M2.5 12h11" />
+</svg></button></div><!-- 데스크톱에서는 nav 를 일반 영역에 둔다. 작은 화면에서만 첫 페인트 전에 같은 nav
+     노드를 dialog 안으로 옮겨 showModal()로 연다. 30rem은 `global.css`에 기록한 공통
+     좁은 화면 분기이며 CSS와 아래 두 matchMedia()가 같은 값을 써야 한다. JS가 꺼지면
+     nav 는 원래 자리에 남아 이동 기능 자체는 유지된다. --><script>
+  (() => {
+    const menu = document.getElementById('site-header-menu');
+    const navigation = menu?.querySelector('#primary-navigation');
+    const dialogNavigation = menu?.querySelector('[data-dialog-navigation]');
+
+    if (
+      window.matchMedia('(max-width: 30rem)').matches &&
+      menu &&
+      navigation &&
+      dialogNavigation
+    ) {
+      dialogNavigation.append(navigation);
+      menu.setAttribute('data-mobile', '');
+    }
+  })();
+</script><script type="module">var e=window.matchMedia(`(max-width: 30rem)`),t=window.matchMedia(`(prefers-reduced-motion: reduce)`),n=document.querySelector(`[data-header-menu]`),r=n?.querySelector(`#primary-navigation-dialog`),i=n?.querySelector(`[data-desktop-navigation]`),a=n?.querySelector(`[data-dialog-navigation]`),o=n?.querySelector(`.menu-toggle`),s=r?.querySelector(`.dialog-close`),c=n?.querySelector(`#primary-navigation`),l=!1,u=!1,d;function f(e){o?.setAttribute(`aria-expanded`,String(e))}function p(){d!==void 0&&(window.clearTimeout(d),d=void 0),r?.classList.remove(`is-closing`),r?.open&&r.close(),document.documentElement.classList.remove(`menu-dialog-open`),f(!1),l=!1,u&&o?.focus(),u=!1}function m(){!r||r.open||!e.matches||(r.showModal(),document.documentElement.classList.add(`menu-dialog-open`),f(!0),s?.focus())}function h(n=!1){if(!(!r?.open||!e.matches)){if(u||=n,t.matches){p();return}l||(l=!0,r.classList.add(`is-closing`),d=window.setTimeout(p,160))}}function g(e){d!==void 0&&(window.clearTimeout(d),d=void 0),r?.classList.remove(`is-closing`),r?.open&&r.close(),document.documentElement.classList.remove(`menu-dialog-open`),l=!1,u=!1;let t=e?a:i;c&&t&&c.parentElement!==t&&t.append(c),n?.toggleAttribute(`data-mobile`,e),f(!1)}o?.addEventListener(`click`,m),s?.addEventListener(`click`,()=>h(!0)),r?.addEventListener(`cancel`,e=>{e.preventDefault(),h(!0)}),r?.addEventListener(`click`,e=>{if(e.target!==r)return;let t=r.getBoundingClientRect();(e.clientX<t.left||e.clientX>t.right||e.clientY<t.top||e.clientY>t.bottom)&&h(!0)}),c?.addEventListener(`click`,e=>{e.target instanceof Element&&e.target.closest(`a`)&&h()}),e.addEventListener(`change`,e=>g(e.matches)),g(e.matches);</script></div></header><main><div class="archive" data-posts-archive data-post-view="list" data-astro-cid-bxdp5n4l><h1 data-astro-cid-bxdp5n4l>POSTS</h1><div class="archive-controls" data-astro-cid-bxdp5n4l><div class="post-search-area" data-post-search data-results-id="post-list" data-astro-cid-ik5hny5d><form class="post-search" role="search" action="/posts/" method="get" data-astro-cid-ik5hny5d><label for="post-list-search-input" data-astro-cid-ik5hny5d>게시글 검색</label><div class="search-field" data-astro-cid-ik5hny5d><input id="post-list-search-input" name="q" type="search" placeholder="제목·본문·코드 검색" autocomplete="off" aria-controls="post-list" data-astro-cid-ik5hny5d><span class="search-spinner" data-search-spinner aria-hidden="true" hidden data-astro-cid-ik5hny5d></span><button class="search-clear" data-search-clear type="button" aria-label="검색어 지우기" hidden data-astro-cid-ik5hny5d><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" width="16" height="16" aria-hidden="true" data-astro-cid-ik5hny5d="true">
+  <path d="m3.5 3.5 9 9m0-9-9 9" />
+</svg></button></div></form><p class="search-status" data-search-status aria-live="polite" data-astro-cid-ik5hny5d></p></div><script type="module">
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+  // 같은 컴포넌트가 여러 번 있어도 각 검색창을 한 번만 초기화한다. Astro prop은
+  // data-results-id로 HTML에 남고, 브라우저에서는 그 ID로 제어할 목록을 찾는다.
+  const searchRoots = document.querySelectorAll('[data-post-search]:not([data-search-ready])');
+
+  for (const searchRoot of searchRoots) {
+    searchRoot.setAttribute('data-search-ready', '');
+
+    const resultsId = searchRoot.getAttribute('data-results-id');
+    const postList = resultsId ? document.getElementById(resultsId) : null;
+    const searchForm = searchRoot.querySelector('.post-search');
+    const searchInput = searchRoot.querySelector('input[type="search"]');
+    const searchStatus = searchRoot.querySelector('[data-search-status]');
+    const searchSpinner = searchRoot.querySelector('[data-search-spinner]');
+    const clearButton = searchRoot.querySelector('[data-search-clear]');
+    const searchMessage = postList?.querySelector('[data-search-message]');
+
+    if (
+      searchForm &&
+      searchInput &&
+      postList &&
+      searchStatus &&
+      searchMessage &&
+      searchSpinner &&
+      clearButton
+    ) {
+      const postItems = [...postList.querySelectorAll('[data-post-url]')];
+      const yearGroups = [...postList.querySelectorAll('[data-year-group]')];
+      let debounceTimer;
+      let searchVersion = 0;
+      let visibilityVersion = 0;
+      let itemAnimations = [];
+      let pagefindPromise;
+      const searchDelay = 200;
+
+      let targetVisibility = new Map(postItems.map((item) => [item, true]));
+
+      searchInput.value = new URL(window.location.href).searchParams.get('q') ?? '';
+
+      const cancelItemAnimations = () => {
+        for (const animation of itemAnimations) animation.cancel();
+        itemAnimations = [];
+      };
+
+      const clearItemOpacity = () => {
+        for (const item of postItems) item.style.removeProperty('opacity');
+      };
+
+      const applyVisibility = (visibility) => {
+        clearItemOpacity();
+        for (const [item, visible] of visibility) item.hidden = !visible;
+        for (const group of yearGroups) {
+          group.hidden = !group.querySelector('li:not([hidden])');
+        }
+      };
+
+      // 목록형과 카드형은 항목의 기준 좌표가 완전히 다르다. 검색 이동 애니메이션 도중
+      // 보기 방식이 바뀌면 기존 좌표로 만든 transform이 새 레이아웃에 적용되므로, 전환
+      // 직전에 현재 검색 결과의 최종 상태로 정착시킨다.
+      postList.closest('[data-posts-archive]')?.addEventListener('posts:viewchange', () => {
+        visibilityVersion += 1;
+        cancelItemAnimations();
+        applyVisibility(targetVisibility);
+      });
+
+      const setSearching = (isSearching) => {
+        searchSpinner.hidden = !isSearching;
+        searchForm.setAttribute('aria-busy', String(isSearching));
+      };
+
+      const setSearchStatus = (message) => {
+        if (searchStatus.textContent === message) return;
+        searchStatus.textContent = message;
+      };
+
+      const setSearchMessage = (message = '') => {
+        searchMessage.textContent = message;
+        searchMessage.hidden = !message;
+      };
+
+      const syncClearButton = () => {
+        clearButton.hidden = searchInput.value.length === 0;
+      };
+
+      const normalizePath = (value) => {
+        let path = new URL(value, window.location.origin).pathname;
+        path = path.replace(/index\.html$/, '');
+        return path.endsWith('/') ? path : `${path}/`;
+      };
+
+      const updateList = async (matchingPaths) => {
+        visibilityVersion += 1;
+        const version = visibilityVersion;
+
+        cancelItemAnimations();
+        clearItemOpacity();
+
+        const nextVisibility = new Map(
+          postItems.map((item) => {
+            const path = item.dataset.postUrl;
+            return [item, matchingPaths ? Boolean(path && matchingPaths.has(path)) : true];
+          }),
+        );
+        targetVisibility = nextVisibility;
+        const showing = postItems.filter((item) => item.hidden && nextVisibility.get(item));
+        const hiding = postItems.filter((item) => !item.hidden && !nextVisibility.get(item));
+        const staying = postItems.filter((item) => !item.hidden && nextVisibility.get(item));
+
+        if (
+          reducedMotion.matches ||
+          typeof postItems[0]?.animate !== 'function' ||
+          (showing.length === 0 && hiding.length === 0)
+        ) {
+          applyVisibility(nextVisibility);
+          return;
+        }
+
+        // 먼저 제외될 항목만 사라지게 한다. 남은 항목은 아직 움직이지 않는다.
+        itemAnimations = hiding.map((item) =>
+          item.animate([{ opacity: 1 }, { opacity: 0 }], {
+            duration: 120,
+            easing: 'ease-out',
+            fill: 'forwards',
+          }),
+        );
+        await Promise.allSettled(itemAnimations.map((animation) => animation.finished));
+        if (version !== visibilityVersion) return;
+
+        // 제외 항목을 레이아웃에서 빼기 직전 위치와 최종 배치 위치를 비교한다. 같은 코드가
+        // 목록형에서는 세로 이동을, 카드형에서는 가로·세로 이동을 모두 처리한다.
+        const previousPositions = new Map(
+          staying.map((item) => [item, item.getBoundingClientRect()]),
+        );
+
+        for (const item of hiding) item.hidden = true;
+        for (const item of showing) {
+          item.hidden = false;
+          item.style.opacity = '0';
+        }
+        cancelItemAnimations();
+
+        for (const group of yearGroups) {
+          const hasVisibleItem = [...group.querySelectorAll('[data-post-url]')].some((item) =>
+            nextVisibility.get(item),
+          );
+          group.hidden = !hasVisibleItem;
+        }
+
+        itemAnimations = staying.flatMap((item) => {
+          const previous = previousPositions.get(item);
+          const next = item.getBoundingClientRect();
+          if (!previous) return [];
+
+          const deltaX = previous.left - next.left;
+          const deltaY = previous.top - next.top;
+          if (Math.abs(deltaX) < 0.5 && Math.abs(deltaY) < 0.5) return [];
+
+          return [
+            item.animate(
+              [
+                { transform: `translate(${deltaX}px, ${deltaY}px)` },
+                { transform: 'translate(0, 0)' },
+              ],
+              {
+                duration: 180,
+                easing: 'cubic-bezier(0.2, 0, 0, 1)',
+                fill: 'forwards',
+              },
+            ),
+          ];
+        });
+        await Promise.allSettled(itemAnimations.map((animation) => animation.finished));
+        if (version !== visibilityVersion) return;
+
+        cancelItemAnimations();
+
+        // 이동이 끝난 다음 새로 포함된 항목만 나타낸다.
+        for (const item of showing) item.style.removeProperty('opacity');
+        itemAnimations = showing.map((item) =>
+          item.animate([{ opacity: 0 }, { opacity: 1 }], {
+            duration: 120,
+            easing: 'ease-out',
+          }),
+        );
+        await Promise.allSettled(itemAnimations.map((animation) => animation.finished));
+        if (version !== visibilityVersion) return;
+
+        cancelItemAnimations();
+      };
+
+      const loadPagefind = () => {
+        // 이 스크립트는 is:inline이라 Vite가 public의 Pagefind 파일을 소스 모듈로
+        // 변환하지 않고 브라우저가 런타임에 직접 불러온다.
+        pagefindPromise ??= import('/pagefind/pagefind.js');
+        return pagefindPromise;
+      };
+
+      const runSearch = async (query, version) => {
+        try {
+          const pagefind = await loadPagefind();
+          const response = await pagefind.search(query);
+          const resultData = await Promise.all(response.results.map((result) => result.data()));
+
+          if (version !== searchVersion) return;
+
+          const matchingPaths = new Set(
+            resultData.map((result) => normalizePath(result.raw_url ?? result.url)),
+          );
+          await updateList(matchingPaths);
+          if (version !== searchVersion) return;
+
+          setSearching(false);
+          setSearchMessage(matchingPaths.size > 0 ? '' : '검색 결과가 없습니다.');
+          setSearchStatus(
+            matchingPaths.size > 0
+              ? `검색 결과 ${matchingPaths.size}개`
+              : '검색 결과가 없습니다.',
+          );
+        } catch (error) {
+          if (version !== searchVersion) return;
+
+          pagefindPromise = undefined;
+          await updateList();
+          if (version !== searchVersion) return;
+
+          setSearching(false);
+          setSearchMessage('검색을 불러오지 못했습니다.');
+          setSearchStatus('검색을 불러오지 못했습니다.');
+          console.error('Pagefind 검색을 불러오지 못했습니다.', error);
+        }
+      };
+
+      const queueSearch = (query, delay = searchDelay) => {
+        searchVersion += 1;
+        const version = searchVersion;
+
+        if (debounceTimer !== undefined) window.clearTimeout(debounceTimer);
+
+        if (!query) {
+          debounceTimer = undefined;
+          setSearching(false);
+          setSearchMessage();
+          void updateList();
+          setSearchStatus('');
+          return;
+        }
+
+        setSearching(true);
+        setSearchMessage();
+        setSearchStatus('검색 중…');
+        debounceTimer = window.setTimeout(() => {
+          debounceTimer = undefined;
+          void runSearch(query, version);
+        }, delay);
+      };
+
+      const updateQuery = () => {
+        const url = new URL(window.location.href);
+        const query = searchInput.value.trim();
+
+        if (query) url.searchParams.set('q', query);
+        else url.searchParams.delete('q');
+
+        window.history.replaceState(window.history.state, '', url);
+        syncClearButton();
+        queueSearch(query);
+      };
+
+      const clearQuery = () => {
+        searchInput.value = '';
+        updateQuery();
+        searchInput.focus();
+      };
+
+      searchInput.addEventListener('input', updateQuery);
+      searchInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && searchInput.value) {
+          event.preventDefault();
+          clearQuery();
+        }
+      });
+      clearButton.addEventListener('click', clearQuery);
+      searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        queueSearch(searchInput.value.trim(), 0);
+      });
+
+      syncClearButton();
+      queueSearch(searchInput.value.trim());
+    }
+  }
+</script><div class="post-view-toggle" data-post-view-toggle role="group" aria-label="게시글 보기 방식" data-astro-cid-npcviht3><button type="button" data-post-view-option="list" aria-label="목록형 보기" aria-pressed="true" data-astro-cid-npcviht3><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linecap="round" stroke-width="1.5" width="18" height="18" aria-hidden="true" data-astro-cid-npcviht3="true">
+  <path d="M2.5 4h1m2.5 0h7.5M2.5 8h1m2.5 0h7.5m-11 4h1m2.5 0h7.5" />
+</svg></button><button type="button" data-post-view-option="card" aria-label="카드형 보기" aria-pressed="false" data-astro-cid-npcviht3><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-linejoin="round" stroke-width="1.5" width="18" height="18" aria-hidden="true" data-astro-cid-npcviht3="true">
+  <rect x="2.5" y="2.5" width="4" height="4" rx="0.5" />
+  <rect x="9.5" y="2.5" width="4" height="4" rx="0.5" />
+  <rect x="2.5" y="9.5" width="4" height="4" rx="0.5" />
+  <rect x="9.5" y="9.5" width="4" height="4" rx="0.5" />
+</svg></button></div><script>
+  (() => {
+    const storageKey = 'posts-view';
+    const roots = document.querySelectorAll(
+      '[data-post-view-toggle]:not([data-post-view-toggle-ready])',
+    );
+
+    for (const root of roots) {
+      root.setAttribute('data-post-view-toggle-ready', '');
+
+      const archive = root.closest('[data-posts-archive]');
+      const buttons = root.querySelectorAll('[data-post-view-option]');
+      if (!archive || buttons.length === 0) continue;
+
+      const applyView = (view, persist = false) => {
+        if (archive.dataset.postView !== view) {
+          archive.dispatchEvent(new Event('posts:viewchange'));
+          archive.dataset.postView = view;
+        }
+
+        for (const button of buttons) {
+          button.setAttribute('aria-pressed', String(button.dataset.postViewOption === view));
+        }
+
+        if (persist) {
+          try {
+            localStorage.setItem(storageKey, view);
+          } catch {}
+        }
+      };
+
+      let initialView = 'list';
+      try {
+        if (localStorage.getItem(storageKey) === 'card') initialView = 'card';
+      } catch {}
+
+      applyView(initialView);
+
+      for (const button of buttons) {
+        button.addEventListener('click', () => {
+          const view = button.dataset.postViewOption;
+          if (view === 'list' || view === 'card') applyView(view, true);
+        });
+      }
+    }
+  })();
+</script></div><div id="post-list" class="post-list" data-post-list data-astro-cid-bxdp5n4l><p class="search-message" data-search-message hidden data-astro-cid-bxdp5n4l></p><section class="year" data-year-group data-astro-cid-bxdp5n4l><h2 data-astro-cid-bxdp5n4l>2024</h2><ul data-astro-cid-bxdp5n4l><li data-post-url="/posts/topological-sort-algorithm/" data-astro-cid-bxdp5n4l><a href="/posts/topological-sort-algorithm/" data-astro-cid-bxdp5n4l><span class="post-media" aria-hidden="true" data-astro-cid-bxdp5n4l><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/c_limit,w_960/f_auto,q_auto/v1771483457/topological-sort-graph-1_gv3avt.png" alt="" loading="lazy" decoding="async" data-astro-cid-bxdp5n4l></span><span class="post-details" data-astro-cid-bxdp5n4l><span class="post-meta" data-astro-cid-bxdp5n4l><time datetime="2024-03-29" data-astro-cid-bxdp5n4l>03.29</time><span class="category" data-astro-cid-bxdp5n4l>Algorithm</span></span><span class="title" data-astro-cid-bxdp5n4l>위상 정렬(Topological Sort) 알고리즘</span><span class="excerpt" data-astro-cid-bxdp5n4l>방향성 비순환 그래프(DAG) 에서 위상 정렬의 개념과 Kahn&#39;s Algorithm, DFS 기반 구현 방법을 예제 및 Python 코드와 함께 정리해 보자.</span></span></a></li><li data-post-url="/posts/cdc-change-data-capture/" data-astro-cid-bxdp5n4l><a href="/posts/cdc-change-data-capture/" data-astro-cid-bxdp5n4l><span class="post-media" aria-hidden="true" data-astro-cid-bxdp5n4l><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/c_limit,w_960/f_auto,q_auto/v1770691455/change-data-capture-pipline-flow_m2q70s.webp" alt="" loading="lazy" decoding="async" data-astro-cid-bxdp5n4l></span><span class="post-details" data-astro-cid-bxdp5n4l><span class="post-meta" data-astro-cid-bxdp5n4l><time datetime="2024-03-08" data-astro-cid-bxdp5n4l>03.08</time><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></span><span class="title" data-astro-cid-bxdp5n4l>CDC(Change Data Capture) 와 스트리밍 기반 데이터 파이프라인</span><span class="excerpt" data-astro-cid-bxdp5n4l>전통적인 배치 기반 ETL 의 한계를 넘어, 데이터베이스 변경 이력을 이벤트 스트림으로 전달하는 CDC(Change Data Capture) 와 그 구현 방식들을 정리한다.</span></span></a></li><li data-post-url="/posts/mpp-engine-query-optimization-guide/" data-astro-cid-bxdp5n4l><a href="/posts/mpp-engine-query-optimization-guide/" data-astro-cid-bxdp5n4l><span class="post-media" aria-hidden="true" data-astro-cid-bxdp5n4l><img class="post-media-fallback" src="/favicon.svg" alt="" data-astro-cid-bxdp5n4l></span><span class="post-details" data-astro-cid-bxdp5n4l><span class="post-meta" data-astro-cid-bxdp5n4l><time datetime="2024-02-16" data-astro-cid-bxdp5n4l>02.16</time><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></span><span class="title" data-astro-cid-bxdp5n4l>MPP(Massively Parallel Processing) 엔진에서의 쿼리 최적화 가이드</span><span class="excerpt" data-astro-cid-bxdp5n4l>Impala, Trino 와 같은 MPP 엔진의 분산 처리 효율을 극대화하는 쿼리 최적화 전략에 대해 예시를 통해 알아보자.</span></span></a></li><li data-post-url="/posts/massively-parallel-processing/" data-astro-cid-bxdp5n4l><a href="/posts/massively-parallel-processing/" data-astro-cid-bxdp5n4l><span class="post-media" aria-hidden="true" data-astro-cid-bxdp5n4l><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/c_limit,w_960/f_auto,q_auto/v1769494147/impala-query-flow-diagram_qre3de.webp" alt="" loading="lazy" decoding="async" data-astro-cid-bxdp5n4l></span><span class="post-details" data-astro-cid-bxdp5n4l><span class="post-meta" data-astro-cid-bxdp5n4l><time datetime="2024-01-26" data-astro-cid-bxdp5n4l>01.26</time><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></span><span class="title" data-astro-cid-bxdp5n4l>MPP(Massively Parallel Processing) 아키텍처</span><span class="excerpt" data-astro-cid-bxdp5n4l>여러 노드가 하나의 작업을 병렬로 동시에 처리하는 MPP(Massively Parallel Processing) 아키텍처의 개념과 특징 및 그 활용에 대해 알아보자.</span></span></a></li><li data-post-url="/posts/column-oriented-storage/" data-astro-cid-bxdp5n4l><a href="/posts/column-oriented-storage/" data-astro-cid-bxdp5n4l><span class="post-media" aria-hidden="true" data-astro-cid-bxdp5n4l><img src="https://res.cloudinary.com/ddev-hyeoncheol/image/upload/c_limit,w_960/f_auto,q_auto/v1769142104/row-vs-column-storage_jcx545.png" alt="" loading="lazy" decoding="async" data-astro-cid-bxdp5n4l></span><span class="post-details" data-astro-cid-bxdp5n4l><span class="post-meta" data-astro-cid-bxdp5n4l><time datetime="2024-01-05" data-astro-cid-bxdp5n4l>01.05</time><span class="category" data-astro-cid-bxdp5n4l>Data Engineering</span></span><span class="title" data-astro-cid-bxdp5n4l>컬럼 기반(Column-based) 저장 방식</span><span class="excerpt" data-astro-cid-bxdp5n4l>대용량 데이터 분석에 필수적인 컬럼 기반(Column-based) 저장 방식의 개념과 특징을 알아보고, Row-based 방식과 비교해 보자.</span></span></a></li></ul></section></div></div></main><footer class="site-footer" data-astro-cid-jo6i4kqk><div class="inner" data-astro-cid-jo6i4kqk><small data-astro-cid-jo6i4kqk>© 2026 ddev-hyeoncheol · <a href="/licenses.txt" rel="license" data-astro-cid-jo6i4kqk>CC BY 4.0</a></small><nav aria-label="사이트 정보" data-astro-cid-jo6i4kqk><a href="/rss.xml" data-astro-cid-jo6i4kqk><svg viewBox="0 0 16 16" fill="currentColor" class="icon" width="16" height="16" aria-hidden="true" data-astro-cid-jo6i4kqk="true">
   <path d="M2.002 2.725a.75.75 0 0 1 .797-.699C8.79 2.42 13.58 7.21 13.974 13.201a.75.75 0 0 1-1.497.098 10.502 10.502 0 0 0-9.776-9.776.747.747 0 0 1-.7-.798ZM2.84 7.05h-.002a7.002 7.002 0 0 1 6.113 6.111.75.75 0 0 1-1.49.178 5.503 5.503 0 0 0-4.8-4.8.75.75 0 0 1 .179-1.489ZM2 13a1 1 0 1 1 2 0 1 1 0 0 1-2 0Z" />
 </svg>RSS</a><a href="https://github.com/ddev-hyeoncheol" target="_blank" rel="noopener" aria-label="GitHub (새 창)" data-astro-cid-jo6i4kqk><svg viewBox="0 0 16 16" fill="currentColor" class="icon" width="16" height="16" aria-hidden="true" data-astro-cid-jo6i4kqk="true">
   <path d="M6.766 11.328c-2.063-.25-3.516-1.734-3.516-3.656 0-.781.281-1.625.75-2.188-.203-.515-.172-1.609.063-2.062.625-.078 1.468.25 1.968.703.594-.187 1.219-.281 1.985-.281.765 0 1.39.094 1.953.265.484-.437 1.344-.765 1.969-.687.218.422.25 1.515.046 2.047.5.593.766 1.39.766 2.203 0 1.922-1.453 3.375-3.547 3.64.531.344.89 1.094.89 1.954v1.625c0 .468.391.734.86.547C13.781 14.359 16 11.53 16 8.03 16 3.61 12.406 0 7.984 0 3.563 0 0 3.61 0 8.031a7.88 7.88 0 0 0 5.172 7.422c.422.156.828-.125.828-.547v-1.25c-.219.094-.5.156-.75.156-1.031 0-1.64-.562-2.078-1.609-.172-.422-.36-.672-.719-.719-.187-.015-.25-.093-.25-.187 0-.188.313-.328.625-.328.453 0 .844.281 1.25.86.313.452.64.655 1.031.655s.641-.14 1-.5c.266-.265.47-.5.657-.656" />

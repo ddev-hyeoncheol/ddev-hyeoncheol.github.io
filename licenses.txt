@@ -14,8 +14,10 @@ International (CC BY 4.0) 을 따릅니다. 복제·배포·수정과 상업적 
 
 [아이콘]
 
-이 사이트가 사용하는 UI 아이콘은 GitHub Octicons 이며 아래 MIT 라이선스를
-따릅니다. 위 CC BY 4.0 은 아이콘에 적용되지 않습니다.
+RSS, GitHub, 위쪽 화살표, 해와 달 UI 아이콘은 GitHub Octicons 이며 아래 MIT
+라이선스를 따릅니다. 헤더의 메뉴·닫기 아이콘, 목록·카드 보기 아이콘과 사이트 로고
+심벌은 자체 제작했습니다.
+위 CC BY 4.0 은 UI 아이콘과 로고에 적용되지 않습니다.
 
   https://github.com/primer/octicons
 
@@ -40,6 +42,19 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+
+[글꼴]
+
+ERROR LOG 로고에는 League Spartan 500의 필요한 문자만 추출한 웹폰트를
+사용합니다. League Spartan은 SIL Open Font License 1.1을 따르며, 전체 라이선스
+원문은 글꼴 파일과 함께 아래 경로에 배포합니다.
+
+  /fonts/league-spartan/OFL.txt
+  https://github.com/google/fonts/tree/main/ofl/leaguespartan
+
+Copyright 2020 The League Spartan Project Authors
+(https://github.com/theleagueof/league-spartan)
 
 
 [수식]

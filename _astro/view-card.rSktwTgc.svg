@@ -1,0 +1,14 @@
+<!-- ERROR LOG 자체 제작 카드형 보기 아이콘 -->
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox="0 0 16 16"
+  fill="none"
+  stroke="currentColor"
+  stroke-linejoin="round"
+  stroke-width="1.5"
+>
+  <rect x="2.5" y="2.5" width="4" height="4" rx="0.5" />
+  <rect x="9.5" y="2.5" width="4" height="4" rx="0.5" />
+  <rect x="2.5" y="9.5" width="4" height="4" rx="0.5" />
+  <rect x="9.5" y="9.5" width="4" height="4" rx="0.5" />
+</svg>
